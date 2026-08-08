@@ -1,0 +1,6 @@
+name: Pl3xMapMarker
+version: '${version}'
+
+main: org.blood.pl3xMapMarker.Pl3xMapMarker
+api-version: '26.1.2'
+load: POSTWORLD
