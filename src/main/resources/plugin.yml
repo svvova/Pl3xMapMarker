@@ -4,3 +4,23 @@ version: '${version}'
 main: org.blood.pl3xMapMarker.Pl3xMapMarker
 api-version: '26.1.2'
 load: POSTWORLD
+depend: [Pl3xMap]
+
+commands:
+  mapmark:
+    description: Управление метками и территориями на карте Pl3xMap
+    usage: /mapmark <marker|pos1|pos2|territory|delete|list>
+
+permissions:
+  mapmark.marker:
+    description: Позволяет ставить маркеры на карте
+    default: op
+  mapmark.territory:
+    description: Позволяет размечать территории на карте
+    default: op
+  mapmark.admin:
+    description: Позволяет удалять любые объекты
+    default: op
+    children:
+      mapmark.marker: true
+      mapmark.territory: true
