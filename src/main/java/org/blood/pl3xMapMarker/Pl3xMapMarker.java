@@ -17,6 +17,8 @@ public final class Pl3xMapMarker extends JavaPlugin {
             return;
         }
 
+        saveDefaultConfig();
+
         storage = new MarkerStorage(this);
         storage.load();
 
@@ -24,7 +26,7 @@ public final class Pl3xMapMarker extends JavaPlugin {
         // Delay init so Pl3xMap has its worlds registered
         Bukkit.getScheduler().runTaskLater(this, () -> manager.init(), 20L);
 
-        MapMarkCommand executor = new MapMarkCommand(storage, manager);
+        MapMarkCommand executor = new MapMarkCommand(this, storage, manager);
         PluginCommand command = getCommand("mapmark");
         if (command != null) {
             command.setExecutor(executor);

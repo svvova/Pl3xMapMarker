@@ -1,0 +1,9 @@
+# Лимиты объектов на игрока (не действуют на игроков с правом mapmark.admin)
+limits:
+  markers: 10
+  territories: 3
+
+# Кулдауны в секундах (не действуют на игроков с правом mapmark.admin)
+cooldowns:
+  create: 30
+  delete: 3
