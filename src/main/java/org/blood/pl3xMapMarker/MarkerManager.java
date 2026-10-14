@@ -6,6 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import net.pl3x.map.core.Pl3xMap;
+import net.pl3x.map.core.event.EventHandler;
+import net.pl3x.map.core.event.EventListener;
+import net.pl3x.map.core.event.server.ServerLoadedEvent;
+import net.pl3x.map.core.event.world.WorldLoadedEvent;
 import net.pl3x.map.core.image.IconImage;
 import net.pl3x.map.core.markers.Point;
 import net.pl3x.map.core.markers.layer.SimpleLayer;
@@ -14,7 +18,7 @@ import net.pl3x.map.core.markers.option.Options;
 import net.pl3x.map.core.world.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class MarkerManager {
+public final class MarkerManager implements EventListener {
 
     public static final String LAYER_KEY = "mapmark";
     public static final String ICON_KEY = "mapmark_pin";
@@ -34,11 +38,31 @@ public final class MarkerManager {
         }
     }
 
-    public void shutdown() {
-        for (World world : Pl3xMap.api().getWorldRegistry()) {
-            if (world.getLayerRegistry().has(LAYER_KEY)) {
-                world.getLayerRegistry().unregister(LAYER_KEY);
+    @EventHandler
+    public void onServerLoaded(ServerLoadedEvent event) {
+        init();
+    }
+
+    @EventHandler
+    public void onWorldLoaded(WorldLoadedEvent event) {
+        registerIcon();
+        for (MarkedObject obj : storage.all()) {
+            if (obj.getWorld().equals(event.getWorld().getName())) {
+                addToMap(obj);
             }
+        }
+    }
+
+    public void shutdown() {
+        try {
+            if (Pl3xMap.api() != null && Pl3xMap.api().getWorldRegistry() != null) {
+                for (World world : Pl3xMap.api().getWorldRegistry()) {
+                    if (world.getLayerRegistry().has(LAYER_KEY)) {
+                        world.getLayerRegistry().unregister(LAYER_KEY);
+                    }
+                }
+            }
+        } catch (Throwable ignored) {
         }
     }
 

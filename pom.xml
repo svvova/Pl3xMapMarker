@@ -24,8 +24,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -65,13 +64,13 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>26.1.2.build.74-stable</version>
+            <version>26.3.build.184-stable</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>maven.modrinth</groupId>
             <artifactId>pl3xmap</artifactId>
-            <version>26.1.2-549</version>
+            <version>26.3-557</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

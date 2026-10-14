@@ -23,6 +23,11 @@ public final class Pl3xMapMarker extends JavaPlugin {
         storage.load();
 
         manager = new MarkerManager(this, storage);
+        try {
+            net.pl3x.map.core.Pl3xMap.api().getEventRegistry().register(manager);
+        } catch (Throwable t) {
+            getLogger().warning("Could not register Pl3xMap event listener: " + t.getMessage());
+        }
         // Delay init so Pl3xMap has its worlds registered
         Bukkit.getScheduler().runTaskLater(this, () -> manager.init(), 20L);
 
